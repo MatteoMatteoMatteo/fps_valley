@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheckPoint;
     public LayerMask whatIsGround;
     public Animator anim;
+    public GameObject bullet;
+    public Transform firePoint;
 
     void Start()
     {
@@ -117,6 +119,25 @@ public class PlayerController : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + mouseInput.x, transform.rotation.eulerAngles.z);
         camTransform.rotation = Quaternion.Euler(camTransform.transform.rotation.eulerAngles + new Vector3(-mouseInput.y, 0f, 0f));
+
+        //Handle Shooting
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(camTransform.position, camTransform.forward, out hit, 50f))
+            {
+                if (Vector3.Distance(camTransform.position, hit.point) > 2f)
+                {
+                    firePoint.LookAt(hit.point);
+                }
+            }
+            else
+            {
+                firePoint.LookAt(camTransform.position + (camTransform.forward * 30f));
+            }
+            Instantiate(bullet, firePoint.position, firePoint.rotation);
+        }
+
 
         //Handle running animation
         anim.SetFloat("moveSpeed", moveInput.magnitude);
