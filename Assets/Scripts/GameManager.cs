@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class GameManager : MonoBehaviour
 {
+
+    AudioSource theme;
 
     public GameObject theCoin1;
 
@@ -19,6 +22,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        theme = GetComponent<AudioSource>();
+
         Cursor.lockState = CursorLockMode.Locked;
 
         // Instantiate at position (0, 0, 0) and zero rotation.

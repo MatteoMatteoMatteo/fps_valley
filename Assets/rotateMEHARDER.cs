@@ -13,6 +13,6 @@ public class rotateMEHARDER : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(0, -2, 0, 0);
+        transform.Rotate(0, -200 * Time.deltaTime, 0, 0);
     }
 }

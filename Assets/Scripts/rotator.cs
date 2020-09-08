@@ -8,6 +8,7 @@ public class rotator : MonoBehaviour
 {
     public GameObject a;
     WallTransformer aScript;
+    public GameObject q;
     public GameObject c1;
     public GameObject c2;
     public TextMeshPro coin1NumberText;
@@ -23,7 +24,8 @@ public class rotator : MonoBehaviour
     {
         a = GameObject.Find("TrapHolder");
         aScript = a.GetComponent<WallTransformer>();
-        questionText = GameObject.Find("Question").GetComponent<TextMeshProUGUI>();
+        q = GameObject.Find("Question");
+        questionText = q.GetComponent<TextMeshProUGUI>();
         c1 = GameObject.Find("Coin1Text");
         coin1NumberText = c1.GetComponent<TextMeshPro>();
         c2 = GameObject.Find("Coin2Text");
@@ -31,14 +33,12 @@ public class rotator : MonoBehaviour
         NewRound();
     }
 
-    // Update is called once per frame
-
     void NewRound()
     {
         questionNumber1 = Random.Range(0, 40);
         questionNumber2 = Random.Range(0, 40);
 
-        coin1Number = questionNumber1 + questionNumber2 - Random.Range(0, 10);
+        coin1Number = questionNumber1 + questionNumber2 - Random.Range(1, 15);
         coin2Number = questionNumber1 + questionNumber2;
 
         questionText.text = "Solve: " + questionNumber1 + " + " + questionNumber2 + "";

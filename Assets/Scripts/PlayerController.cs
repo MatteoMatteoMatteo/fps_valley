@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    AudioSource shoot;
     public float moveSpeed, gravityModifier, jumpPower, runSpeed = 12, beamDistance;
     public CharacterController charCon;
     private Vector3 moveInput;
@@ -28,7 +29,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-
+        shoot = GetComponent<AudioSource>();
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit)
@@ -118,7 +119,9 @@ public class PlayerController : MonoBehaviour
 
 
         //Control Camera Rotation
-        Vector2 mouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) * mouseSensitivity;
+
+
+        Vector2 mouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")) * mouseSensitivity;
 
         if (invertX)
         {
@@ -130,7 +133,7 @@ public class PlayerController : MonoBehaviour
         }
 
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + mouseInput.x, transform.rotation.eulerAngles.z);
-        camTransform.rotation = Quaternion.Euler(camTransform.transform.rotation.eulerAngles + new Vector3(-mouseInput.y, 0f, 0f));
+        // camTransform.rotation = Quaternion.Euler(camTransform.transform.rotation.eulerAngles + new Vector3(-mouseInput.y, 0f, 0f));
 
         // Handle Shooting
         if (Input.GetMouseButtonDown(0))
@@ -147,7 +150,9 @@ public class PlayerController : MonoBehaviour
             {
                 firePoint.LookAt(camTransform.position + (camTransform.forward * 30f));
             }
+
             Instantiate(bullet, firePoint.position, firePoint.rotation);
+            shoot.Play();
         }
 
 

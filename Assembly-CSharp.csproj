@@ -56,8 +56,10 @@
      <Compile Include="Assets\Scripts\WallTransformer.cs" />
      <Compile Include="Assets\Scripts\hideText.cs" />
      <Compile Include="Assets\Scripts\rotator.cs" />
+     <Compile Include="Assets\motor.cs" />
      <Compile Include="Assets\rotateME.cs" />
      <Compile Include="Assets\rotateMEHARDER.cs" />
+     <Compile Include="Assets\shoot.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
