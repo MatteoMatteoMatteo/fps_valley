@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Trap
+  - Fire
+  - Coin
   layers:
   - Default
   - TransparentFX
@@ -17,7 +20,7 @@ TagManager:
   - Ground
   - Bullets
   - Player
-  - 
+  - Trap
   - 
   - 
   - 

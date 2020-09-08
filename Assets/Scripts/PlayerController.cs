@@ -22,9 +22,21 @@ public class PlayerController : MonoBehaviour
     public GameObject bullet;
     public Transform firePoint;
 
+    public WallTransformer wallTransformerScript1;
+
+    public WallTransformer wallTransformerScript2;
+
     void Start()
     {
-        Debug.Log("You can beam by pressing f");
+
+    }
+
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.tag == "Trap")
+        {
+            Debug.Log("you dead");
+        }
     }
 
     void Update()
@@ -89,17 +101,17 @@ public class PlayerController : MonoBehaviour
             moveInput.y = jumpPower;
             canDoubleJump = true;
         }
-        else if (canDoubleJump && Input.GetKeyDown(KeyCode.Space))
-        {
-            moveInput.y = jumpPower;
-            canDoubleJump = false;
-            canTripleJump = true;
-        }
-        else if (canTripleJump && Input.GetKeyDown(KeyCode.Space))
-        {
-            moveInput.y = jumpPower;
-            canTripleJump = false;
-        }
+        // else if (canDoubleJump && Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     moveInput.y = jumpPower;
+        //     canDoubleJump = false;
+        //     canTripleJump = true;
+        // }
+        // else if (canTripleJump && Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     moveInput.y = jumpPower;
+        //     canTripleJump = false;
+        // }
 
         //Give movement to player
         charCon.Move(moveInput * Time.deltaTime);
@@ -121,22 +133,22 @@ public class PlayerController : MonoBehaviour
         camTransform.rotation = Quaternion.Euler(camTransform.transform.rotation.eulerAngles + new Vector3(-mouseInput.y, 0f, 0f));
 
         //Handle Shooting
-        if (Input.GetMouseButtonDown(0))
-        {
-            RaycastHit hit;
-            if (Physics.Raycast(camTransform.position, camTransform.forward, out hit, 50f))
-            {
-                if (Vector3.Distance(camTransform.position, hit.point) > 2f)
-                {
-                    firePoint.LookAt(hit.point);
-                }
-            }
-            else
-            {
-                firePoint.LookAt(camTransform.position + (camTransform.forward * 30f));
-            }
-            Instantiate(bullet, firePoint.position, firePoint.rotation);
-        }
+        // if (Input.GetMouseButtonDown(0))
+        // {
+        //     RaycastHit hit;
+        //     if (Physics.Raycast(camTransform.position, camTransform.forward, out hit, 50f))
+        //     {
+        //         if (Vector3.Distance(camTransform.position, hit.point) > 2f)
+        //         {
+        //             firePoint.LookAt(hit.point);
+        //         }
+        //     }
+        //     else
+        //     {
+        //         firePoint.LookAt(camTransform.position + (camTransform.forward * 30f));
+        //     }
+        //     Instantiate(bullet, firePoint.position, firePoint.rotation);
+        // }
 
 
         //Handle running animation
