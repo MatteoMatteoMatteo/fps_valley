@@ -6,6 +6,7 @@ public class WallTransformer : MonoBehaviour
 {
 
     public bool ready = true;
+    public float goUp = 0.1f;
     public float howFast = 0.05f;
     public bool allCollected = false;
 
@@ -24,7 +25,7 @@ public class WallTransformer : MonoBehaviour
         {
             if (transform.position.y <= 4.74f)
             {
-                transform.position = transform.position + new Vector3(0, 0.02f, 0);
+                transform.position = transform.position + new Vector3(0, goUp, 0);
             }
             else
             {
@@ -39,8 +40,18 @@ public class WallTransformer : MonoBehaviour
                 transform.position = transform.position + new Vector3(howFast, 0, 0);
             }
         }
+        else if (!ready && allCollected)
+        {
+            transform.position = new Vector3(-81.1f, 4.759992f, 1.153914f);
+            allCollected = false;
+        }
 
 
 
+    }
+
+    public void moveCloser()
+    {
+        transform.position = transform.position + new Vector3(30, 0, 0);
     }
 }

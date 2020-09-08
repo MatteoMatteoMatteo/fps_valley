@@ -8,6 +8,10 @@ TagManager:
   - Trap
   - Fire
   - Coin
+  - YesCoin
+  - NoCoin
+  - win
+  - lose
   layers:
   - Default
   - TransparentFX

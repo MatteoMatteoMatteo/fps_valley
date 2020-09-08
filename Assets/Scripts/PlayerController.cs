@@ -51,56 +51,56 @@ public class PlayerController : MonoBehaviour
         moveInput.Normalize();
 
         //Handle running
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            moveInput = moveInput * runSpeed;
-        }
+        // if (Input.GetKey(KeyCode.LeftShift))
+        // {
+        //     moveInput = moveInput * runSpeed;
+        // }
         //Handle walking
-        else
-        {
-            moveInput = moveInput * moveSpeed;
-        }
+        // else
+        // {
+        //     moveInput = moveInput * moveSpeed;
+        // }
         //Handle Beaming
-        if (Input.GetKeyDown(KeyCode.F) && beaming == false)
-        {
-            beaming = true;
-            beamTimer = 0;
-            moveInput = moveInput * beamDistance;
-        }
-        if (beaming)
-        {
-            beamTimer += Time.deltaTime;
-            Debug.Log("Beam Ability ready in: " + Mathf.RoundToInt(beamTimer));
-            if (beamTimer >= 5)
-            {
-                Debug.Log("You can beam by pressing f");
-                beaming = false;
-            }
-        }
+        // if (Input.GetKeyDown(KeyCode.F) && beaming == false)
+        // {
+        //     beaming = true;
+        //     beamTimer = 0;
+        //     moveInput = moveInput * beamDistance;
+        // }
+        // if (beaming)
+        // {
+        //     beamTimer += Time.deltaTime;
+        //     Debug.Log("Beam Ability ready in: " + Mathf.RoundToInt(beamTimer));
+        //     if (beamTimer >= 5)
+        //     {
+        //         Debug.Log("You can beam by pressing f");
+        //         beaming = false;
+        //     }
+        // }
 
-        moveInput.y = yStore;
-        moveInput.y += Physics.gravity.y * gravityModifier * Time.deltaTime;
+        // moveInput.y = yStore;
+        // moveInput.y += Physics.gravity.y * gravityModifier * Time.deltaTime;
 
-        //Handle Gravity/Falling Down
-        if (charCon.isGrounded)
-        {
-            moveInput.y = Physics.gravity.y * gravityModifier * Time.deltaTime;
-        }
+        // //Handle Gravity/Falling Down
+        // if (charCon.isGrounded)
+        // {
+        //     moveInput.y = Physics.gravity.y * gravityModifier * Time.deltaTime;
+        // }
 
-        //Handle Jumping
-        canJump = Physics.OverlapSphere(groundCheckPoint.position, .25f, whatIsGround).Length > 0;
+        // //Handle Jumping
+        // canJump = Physics.OverlapSphere(groundCheckPoint.position, .25f, whatIsGround).Length > 0;
 
-        if (canJump)
-        {
-            canDoubleJump = false;
-            canTripleJump = false;
-        }
+        // if (canJump)
+        // {
+        //     canDoubleJump = false;
+        //     canTripleJump = false;
+        // }
 
-        if (Input.GetKeyDown(KeyCode.Space) && canJump)
-        {
-            moveInput.y = jumpPower;
-            canDoubleJump = true;
-        }
+        // if (Input.GetKeyDown(KeyCode.Space) && canJump)
+        // {
+        //     moveInput.y = jumpPower;
+        //     canDoubleJump = true;
+        // }
         // else if (canDoubleJump && Input.GetKeyDown(KeyCode.Space))
         // {
         //     moveInput.y = jumpPower;
@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour
         // }
 
         //Give movement to player
-        charCon.Move(moveInput * Time.deltaTime);
+        // charCon.Move(moveInput * Time.deltaTime);
 
 
         //Control Camera Rotation
@@ -132,23 +132,23 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + mouseInput.x, transform.rotation.eulerAngles.z);
         camTransform.rotation = Quaternion.Euler(camTransform.transform.rotation.eulerAngles + new Vector3(-mouseInput.y, 0f, 0f));
 
-        //Handle Shooting
-        // if (Input.GetMouseButtonDown(0))
-        // {
-        //     RaycastHit hit;
-        //     if (Physics.Raycast(camTransform.position, camTransform.forward, out hit, 50f))
-        //     {
-        //         if (Vector3.Distance(camTransform.position, hit.point) > 2f)
-        //         {
-        //             firePoint.LookAt(hit.point);
-        //         }
-        //     }
-        //     else
-        //     {
-        //         firePoint.LookAt(camTransform.position + (camTransform.forward * 30f));
-        //     }
-        //     Instantiate(bullet, firePoint.position, firePoint.rotation);
-        // }
+        // Handle Shooting
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(camTransform.position, camTransform.forward, out hit, 50f))
+            {
+                if (Vector3.Distance(camTransform.position, hit.point) > 2f)
+                {
+                    firePoint.LookAt(hit.point);
+                }
+            }
+            else
+            {
+                firePoint.LookAt(camTransform.position + (camTransform.forward * 30f));
+            }
+            Instantiate(bullet, firePoint.position, firePoint.rotation);
+        }
 
 
         //Handle running animation
