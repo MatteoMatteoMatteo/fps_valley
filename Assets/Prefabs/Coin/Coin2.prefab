@@ -217,8 +217,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.949308, y: 1.9411337, z: 2.670111}
-  m_Center: {x: -0.4549757, y: -0.09229925, z: 0.37312463}
+  m_Size: {x: 2.726304, y: 2.5697482, z: 1.3509793}
+  m_Center: {x: -0.010188723, y: -0.03680149, z: 0.38924068}
 --- !u!114 &8797744420311308897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,6 +232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   a: {fileID: 0}
+  q: {fileID: 0}
   c1: {fileID: 0}
   c2: {fileID: 0}
   coin1NumberText: {fileID: 0}

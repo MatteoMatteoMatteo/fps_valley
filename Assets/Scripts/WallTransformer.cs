@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.IO;
+
 
 public class WallTransformer : MonoBehaviour
 {
@@ -17,12 +19,20 @@ public class WallTransformer : MonoBehaviour
     public bool allCollected = false;
 
     private float score = 0;
+    private float highScore = 0;
+    private string highscore_path = "highscore.txt";
 
 
     // Start is called before the first frame update
     void Start()
     {
         dying = GetComponent<AudioSource>();
+        if (!System.IO.File.Exists(highscore_path))
+        {
+            StreamWriter writer = new StreamWriter(highscore_path, true);
+            writer.WriteLine("0");
+            writer.Close();
+        }
 
     }
 
@@ -72,8 +82,17 @@ public class WallTransformer : MonoBehaviour
         {
             dying.Play();
             dead.SetActive(true);
-            scoreObj.GetComponent<TextMeshProUGUI>().text = "Score: " + score;
-            StartCoroutine(ExecuteAfterTime(5));
+            highScore = float.Parse(File.ReadAllText(@highscore_path));
+            if (score > highScore)
+            {
+                File.WriteAllText(@highscore_path, "" + score);
+                scoreObj.GetComponent<TextMeshProUGUI>().text = "New highscore: " + score + " (previous score: " + highScore + ")";
+            }
+            else
+            {
+                scoreObj.GetComponent<TextMeshProUGUI>().text = "Score: " + score + " (Highscore: " + highScore + ")";
+            }
+            StartCoroutine(ExecuteAfterTime(3));
             isRestarting = true;
         }
 

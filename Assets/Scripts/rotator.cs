@@ -35,13 +35,16 @@ public class rotator : MonoBehaviour
 
     void NewRound()
     {
-        questionNumber1 = Random.Range(0, 40);
-        questionNumber2 = Random.Range(0, 40);
+        questionNumber1 = Random.Range(0, 49);
+        questionNumber2 = Random.Range(0, 49);
+        coin1Number = questionNumber1 - questionNumber2 + Random.Range(-7, 7);
+        coin2Number = questionNumber1 - questionNumber2;
+        while (coin1Number == coin2Number)
+        {
+            coin1Number = questionNumber1 - questionNumber2 + Random.Range(-7, 7);
+        }
 
-        coin1Number = questionNumber1 + questionNumber2 - Random.Range(1, 15);
-        coin2Number = questionNumber1 + questionNumber2;
-
-        questionText.text = "Solve: " + questionNumber1 + " + " + questionNumber2 + "";
+        questionText.text = "Solve: " + questionNumber1 + " - " + questionNumber2 + "";
 
         if (Random.value < 0.5f)
         {

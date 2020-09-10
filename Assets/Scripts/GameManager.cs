@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class GameManager : MonoBehaviour
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
         theme = GetComponent<AudioSource>();
 
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
         // Instantiate at position (0, 0, 0) and zero rotation.
         Instantiate(theCoin1, new Vector3(-17.85897f, 2.9f, 6), Quaternion.identity);
@@ -39,6 +41,9 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + -1);
+        }
     }
 }

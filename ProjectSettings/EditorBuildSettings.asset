@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: 2291aa77e64da41a19b52466184d0dda
+  - enabled: 1
+    path: Assets/Scenes/EmotionStress.unity
+    guid: f701b2ee9e6404196b6e1c4d80778508
   m_configObjects: {}
