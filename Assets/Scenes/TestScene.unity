@@ -1302,7 +1302,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1476278579}
   - component: {fileID: 1476278578}
-  - component: {fileID: 1476278577}
   - component: {fileID: 1476278580}
   m_Layer: 10
   m_Name: Player
@@ -1311,35 +1310,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1476278577
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1476278576}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efd3db85b20d14286b3dc14b3e2e54ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 10
-  gravityModifier: 5
-  jumpPower: 20
-  runSpeed: 15
-  beamDistance: 30
-  charCon: {fileID: 1476278578}
-  camTransform: {fileID: 912684337}
-  mouseSensitivity: 10
-  invertX: 0
-  invertY: 0
-  groundCheckPoint: {fileID: 1859709124}
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 256
-  anim: {fileID: 1476278580}
-  bullet: {fileID: 8539669879516894700, guid: ecf8e6c06ea414814ae2f10ec075dc6e, type: 3}
-  firePoint: {fileID: 551086522}
 --- !u!143 &1476278578
 CharacterController:
   m_ObjectHideFlags: 0
