@@ -50,7 +50,9 @@
      <Compile Include="Assets\Scripts\EnemyHealthController.cs" />
      <Compile Include="Assets\Scripts\FloorTrigger.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\MouseScript.cs" />
      <Compile Include="Assets\Scripts\PLAYER.cs" />
+     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\TargetMoving.cs" />
      <Compile Include="Assets\Scripts\mainmenu.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
