@@ -11,13 +11,15 @@ public class PlayerMovement : MonoBehaviour
     public GameObject weapon;
     public Transform firePoint;
     public Transform playerBody;
-
     private float groundDistance = 0.4f;
     bool isGrounded;
     public float speed = 12;
     public float gravity = -9.81f;
     public float jumpHeight = 10;
     Vector3 velocity;
+    GameObject grabbedObj;
+    public Transform grabPosition;
+    bool isGrabbing;
 
     void Start()
     {
@@ -30,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
         Movement();
         HandleShooting();
         RotateWeapon();
+        Grab();
     }
 
     void Movement()
@@ -58,10 +61,10 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleShooting()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
             RaycastHit hit;
-            if (Physics.Raycast(playerBody.position, playerBody.forward, out hit, 50f))
+            if (Physics.Raycast(playerBody.position, playerBody.forward, out hit, 500f))
             {
                 if (Vector3.Distance(playerBody.position, hit.point) > 2f)
                 {
@@ -79,5 +82,27 @@ public class PlayerMovement : MonoBehaviour
     void RotateWeapon()
     {
         weapon.transform.Rotate(0, 0, 20 * Time.deltaTime);
+    }
+
+    void Grab()
+    {
+        RaycastHit hit;
+        if (Input.GetMouseButtonDown(1) && Physics.Raycast(playerBody.position, playerBody.forward, out hit, 500f) && hit.transform.GetComponent<Rigidbody>() && !isGrabbing)
+        {
+            grabbedObj = hit.transform.gameObject;
+            isGrabbing = true;
+            Debug.Log(isGrabbing);
+        }
+        else if (Input.GetMouseButtonDown(1) && isGrabbing)
+        {
+            isGrabbing = false;
+            grabbedObj = null;
+            Debug.Log(isGrabbing);
+        }
+
+        if (grabbedObj)
+        {
+            grabbedObj.GetComponent<Rigidbody>().velocity = 10 * (grabPosition.position - grabbedObj.transform.position);
+        }
     }
 }
