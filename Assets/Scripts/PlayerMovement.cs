@@ -11,60 +11,54 @@ public class PlayerMovement : MonoBehaviour
     public GameObject weapon;
     public Transform firePoint;
     public Transform playerBody;
-    private float groundDistance = 0.4f;
-    bool isGrounded;
+    private float _groundDistance = 0.4f;
+    private bool _isGrounded;
     public float speed = 12;
     public float gravity = -9.81f;
     public float jumpHeight = 10;
-    Vector3 velocity;
-    GameObject grabbedObj;
+    private Vector3 _velocity;
+    private GameObject _grabbedObj;
     public Transform grabPosition;
-    bool isGrabbing;
-
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
+    private bool _isGrabbing;
+    
     void Update()
     {
         Movement();
-        HandleShooting();
+        HandleMissiles();
         RotateWeapon();
         Grab();
     }
 
-    void Movement()
+    private void Movement()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        if (isGrounded && velocity.y < 0)
+        _isGrounded = Physics.CheckSphere(groundCheck.position, _groundDistance, groundMask);
+        if (_isGrounded && _velocity.y < 0)
         {
-            velocity.y = -2f;
+            _velocity.y = -2f;
         }
-        float x = Input.GetAxisRaw("Horizontal");
-        float z = Input.GetAxisRaw("Vertical");
+        var x = Input.GetAxisRaw("Horizontal");
+        var z = Input.GetAxisRaw("Vertical");
 
-        Vector3 move = transform.right * x + transform.forward * z;
+        var transform1 = transform;
+        var move = transform1.right * x + transform1.forward * z;
 
-        controller.Move(move * speed * Time.deltaTime);
+        controller.Move(move * (speed * Time.deltaTime));
 
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButtonDown("Jump") && _isGrounded)
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            _velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
 
-        velocity.y += gravity * Time.deltaTime;
+        _velocity.y += gravity * Time.deltaTime;
 
-        controller.Move(velocity * Time.deltaTime);
+        controller.Move(_velocity * Time.deltaTime);
     }
 
-    void HandleShooting()
+    private void HandleMissiles()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            RaycastHit hit;
-            if (Physics.Raycast(playerBody.position, playerBody.forward, out hit, 500f))
+            if (Physics.Raycast(playerBody.position, playerBody.forward, out var hit, 500f))
             {
                 if (Vector3.Distance(playerBody.position, hit.point) > 2f)
                 {
@@ -75,34 +69,36 @@ public class PlayerMovement : MonoBehaviour
             {
                 firePoint.LookAt(playerBody.position + (playerBody.forward * 30f));
             }
-            Instantiate(bullet, firePoint.position, firePoint.rotation);
+            LaunchMissiles();
         }
     }
+    
+   private void LaunchMissiles()
+    {
+        Instantiate(bullet, firePoint.position, firePoint.rotation);
+    }
 
-    void RotateWeapon()
+    private void RotateWeapon()
     {
         weapon.transform.Rotate(0, 0, 20 * Time.deltaTime);
     }
 
-    void Grab()
+    private void Grab()
     {
-        RaycastHit hit;
-        if (Input.GetMouseButtonDown(1) && Physics.Raycast(playerBody.position, playerBody.forward, out hit, 500f) && hit.transform.GetComponent<Rigidbody>() && !isGrabbing)
+        if (Input.GetMouseButtonDown(1) && Physics.Raycast(playerBody.position, playerBody.forward , out var hit, 500f) && hit.transform.GetComponent<Rigidbody>() && !_isGrabbing)
         {
-            grabbedObj = hit.transform.gameObject;
-            isGrabbing = true;
-            Debug.Log(isGrabbing);
+            _grabbedObj = hit.transform.gameObject;
+            _isGrabbing = true;
         }
-        else if (Input.GetMouseButtonDown(1) && isGrabbing)
+        else if (Input.GetMouseButtonDown(1) && _isGrabbing)
         {
-            isGrabbing = false;
-            grabbedObj = null;
-            Debug.Log(isGrabbing);
+            _isGrabbing = false;
+            _grabbedObj = null;
         }
 
-        if (grabbedObj)
-        {
-            grabbedObj.GetComponent<Rigidbody>().velocity = 10 * (grabPosition.position - grabbedObj.transform.position);
-        }
+        if (!_grabbedObj) return;
+        if (!(_grabbedObj is null))
+            _grabbedObj.GetComponent<Rigidbody>().velocity =
+                10 * (grabPosition.position - _grabbedObj.transform.position);
     }
 }

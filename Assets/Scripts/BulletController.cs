@@ -6,12 +6,9 @@ public class BulletController : MonoBehaviour
 {
     public float moveSpeed, lifeTime;
     public Rigidbody theRB;
+    public int power;
     public GameObject impactEffect;
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
 
     // Update is called once per frame
     void Update()
@@ -26,14 +23,20 @@ public class BulletController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
+        var rigid = other.transform.gameObject.GetComponent<Rigidbody>();
         if (other.gameObject.CompareTag("Enemy"))
         {
+            Instantiate(impactEffect, transform.position + (transform.forward * (-moveSpeed * Time.deltaTime)), transform.rotation);
             Destroy(other.gameObject);
+        }
+        else if (rigid)
+        {
+            rigid.AddForce(transform.forward * power);
         }
 
         Destroy(gameObject);
-        Instantiate(impactEffect, transform.position + (transform.forward * (-moveSpeed * Time.deltaTime)), transform.rotation);
+
     }
 }
