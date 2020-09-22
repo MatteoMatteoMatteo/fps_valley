@@ -16,7 +16,9 @@ public class PlayerMovement : MonoBehaviour
     public Transform playerBody;
     private float _groundDistance = 0.4f;
     private bool _isGrounded;
-    public float speed = 12;
+    public float walkingSpeed = 12f;
+    public float sprint = 20f;
+    private bool _isSprinting = false;
     public float gravity = -30f;
     public float jumpHeight = 10;
     private Vector3 _velocity;
@@ -63,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Movement()
     {
+        //Basic Movement
         _isGrounded = Physics.CheckSphere(groundCheck.position, _groundDistance, groundMask);
         if (_isGrounded && _velocity.y < 0)
         {
@@ -70,25 +73,36 @@ public class PlayerMovement : MonoBehaviour
         }
         var x = Input.GetAxisRaw("Horizontal");
         var z = Input.GetAxisRaw("Vertical");
-
         var transform1 = transform;
         var move = transform1.right * x + transform1.forward * z;
 
-        controller.Move(move * (speed * Time.deltaTime));
+        //Walking & Sprinting
+        if (Input.GetKey(KeyCode.LeftShift) && state == State.Normal)
+        {
+            controller.Move(move * (sprint * Time.deltaTime));
+            speedParticles.SetActive(true);
+            _isSprinting = true;
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
 
+            speedParticles.SetActive(false);
+            _isSprinting = false;
+        }
+        else
+        {
+            controller.Move(move * (walkingSpeed * Time.deltaTime)); 
+        }
+        
+        //Jumping & Gravity
         if (Input.GetButtonDown("Jump") && _isGrounded)
         {
             _velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
-
         _velocity.y += gravity * Time.deltaTime;
-
-        //Move Character Controller
         controller.Move(_velocity * Time.deltaTime);
-        
-        //Dampen momentum
     }
-
+    
     private void HandleMissiles()
     {
         if (Input.GetMouseButtonDown(0))
@@ -134,13 +148,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleHookShotStart()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && !_isSprinting)
         {
             DisableGravity();
 
             if (Physics.Raycast(playerBody.transform.position, playerBody.transform.forward, out RaycastHit raycastHit))
             {
-                grabHolder.position = raycastHit.point;
+                grabHolder.position = raycastHit.point - new Vector3(0,2,0);
                 hookShotPosition = raycastHit.point;
                 state = State.HookshotFlyingPlayer;
             }

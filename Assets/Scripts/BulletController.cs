@@ -7,7 +7,8 @@ public class BulletController : MonoBehaviour
     public float moveSpeed, lifeTime;
     public Rigidbody theRB;
     public int power;
-    public GameObject impactEffect;
+    public GameObject gravityGunImpactEffect;
+    public GameObject enemyImpactEffect;
 
 
     // Update is called once per frame
@@ -29,14 +30,17 @@ public class BulletController : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             Destroy(other.gameObject);
+            Instantiate(enemyImpactEffect, transform.position + (transform.forward * (-moveSpeed * Time.deltaTime)), transform.rotation);
         }
         else if (rigid)
         {
+            Destroy(gameObject);
             rigid.AddForce(transform.forward * power);
+            Instantiate(gravityGunImpactEffect, transform.position + (transform.forward * (-moveSpeed * Time.deltaTime)), transform.rotation);
         }
 
-        Destroy(gameObject);
-        Instantiate(impactEffect, transform.position + (transform.forward * (-moveSpeed * Time.deltaTime)), transform.rotation);
+
+
 
     }
 }
