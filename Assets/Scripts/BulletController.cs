@@ -28,7 +28,6 @@ public class BulletController : MonoBehaviour
         var rigid = other.transform.gameObject.GetComponent<Rigidbody>();
         if (other.gameObject.CompareTag("Enemy"))
         {
-            Instantiate(impactEffect, transform.position + (transform.forward * (-moveSpeed * Time.deltaTime)), transform.rotation);
             Destroy(other.gameObject);
         }
         else if (rigid)
@@ -37,6 +36,7 @@ public class BulletController : MonoBehaviour
         }
 
         Destroy(gameObject);
+        Instantiate(impactEffect, transform.position + (transform.forward * (-moveSpeed * Time.deltaTime)), transform.rotation);
 
     }
 }

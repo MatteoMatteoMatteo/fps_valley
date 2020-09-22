@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 8539669879516894700}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.106, y: 1.585, z: 1.457}
-  m_LocalScale: {x: 1.0086005, y: 1.0086005, z: 1.0086005}
+  m_LocalScale: {x: 0.21761563, y: 0.21761563, z: 0.21761563}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6c0c6b1d7600a4f5eb7176e1014f6192, type: 2}
+  - {fileID: 2100000, guid: f56291dfe6cb947feaadbe2dbece3c06, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -95,11 +95,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d04175cd7a4a45398c2845729e6bb04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 40
+  moveSpeed: 50
   lifeTime: 5
   theRB: {fileID: 8539669879516894703}
   power: 200
-  impactEffect: {fileID: 5481818852921644123, guid: 63fe0213dcc5e46c18a7445a2a324972,
+  impactEffect: {fileID: 6898879743693956324, guid: bb205d2af642f4911918ba93aa464726,
     type: 3}
 --- !u!54 &8539669879516894703
 Rigidbody:
