@@ -9,7 +9,7 @@ public class BulletController : MonoBehaviour
     public int power;
     public GameObject gravityGunImpactEffect;
     public GameObject enemyImpactEffect;
-
+    public int damage=1;
 
     // Update is called once per frame
     void Update()
@@ -29,15 +29,16 @@ public class BulletController : MonoBehaviour
         var rigid = other.transform.gameObject.GetComponent<Rigidbody>();
         if (other.gameObject.CompareTag("Enemy"))
         {
-            Destroy(other.gameObject);
+            other.gameObject.GetComponent<EnemyHealthController>().DamageEnemy(damage);
             Instantiate(enemyImpactEffect, transform.position + (transform.forward * (-moveSpeed * Time.deltaTime)), transform.rotation);
         }
         else if (rigid)
         {
-            Destroy(gameObject);
             rigid.AddForce(transform.forward * power);
             Instantiate(gravityGunImpactEffect, transform.position + (transform.forward * (-moveSpeed * Time.deltaTime)), transform.rotation);
         }
+        
+        Destroy(gameObject);
 
 
 

@@ -5,21 +5,15 @@ using UnityEngine;
 public class EnemyHealthController : MonoBehaviour
 {
 
-    public int currenHealth = 5;
-    // Start is called before the first frame update
-    void Start()
+    public int currentHealth = 5;
+    
+    public void DamageEnemy(int damageAmount)
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public void DamageEnemy()
-    {
-
+        currentHealth-=damageAmount;
+        
+        if (currentHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }
