@@ -61,6 +61,7 @@
      <Compile Include="Assets\AllSkyFree\AllSkyFree_Menu.cs" />
      <Compile Include="Assets\Scripts\BulletController.cs" />
      <Compile Include="Assets\Scripts\EnemyController.cs" />
+     <Compile Include="Assets\Scripts\EnemyControllerFancy.cs" />
      <Compile Include="Assets\Scripts\EnemyHealthController.cs" />
      <Compile Include="Assets\Scripts\FloorTrigger.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />

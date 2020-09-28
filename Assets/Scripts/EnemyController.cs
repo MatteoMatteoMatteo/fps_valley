@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
     private bool _chasing = false;
-    public float distanceToChase = 20, distanceToLose = 25, distanceToStop = 2;
+    public float distanceToChase = 30, distanceToLose = 20, distanceToStartShooting = 10;
     private Vector3 _targetPoint, _startPoint;
     public NavMeshAgent agent;
     public GameObject bullet;
@@ -15,12 +12,20 @@ public class EnemyController : MonoBehaviour
 
     public float fireRate, waitBetweenShots, timeToShoot = 1f;
     private float _fireRate, _shotWaitCounter, _shootTimeCounter;
+
+    public Animator anim;
     
     private void Start()
     {
         _startPoint = transform.position;
         _shootTimeCounter = timeToShoot;
         _shotWaitCounter = waitBetweenShots;
+    }
+    
+    private void RotateTowards (Transform target) {
+        Vector3 direction = (target.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5);
     }
 
     private void Update()
@@ -29,90 +34,56 @@ public class EnemyController : MonoBehaviour
 
         if (!_chasing)
         {
-            //Start Chasing
             if (Vector3.Distance(transform.position, _targetPoint) < distanceToChase)
             {
                 _chasing = true;
-                _shootTimeCounter = timeToShoot;
-                
-                //How long enemy waits with shooting at first contact with player
-                _shotWaitCounter = 1f;
             }
         }
-        else
+        else if(_chasing)
         {
-            //Check how far enemy is from player
-            if (Vector3.Distance(transform.position, _targetPoint) > distanceToStop)
-            {
-                //Follow player
-                agent.destination = _targetPoint;
-            }else 
-            {
-                Vector3 targetDir = _targetPoint - transform.position;
-                float angle = Vector3.SignedAngle(targetDir, transform.forward, Vector3.up);
-               
-                //If Enemy is looking at player stop
-                if (Mathf.Abs(angle) < 30f)
-                {
-                    agent.destination = transform.position;
-                }
-                //Follow as long as enemy faces player
-                else
-                {
-                    agent.destination = _targetPoint;
-                }
-            }
-            
-            //Check if distance to lose is reached
-            if (Vector3.Distance(transform.position, _targetPoint) > distanceToLose)
-            {
-                _chasing = false;
-                agent.destination = _startPoint;
-            }
+            Vector3 targetDir = _targetPoint - transform.position;
+            float angle = Vector3.SignedAngle(targetDir, transform.forward, Vector3.up);
 
-            //--------Manage Shooting--------
-            
-            //Shooting brake time
-            if (_shotWaitCounter > 0)
+            if (Vector3.Distance(transform.position, _targetPoint) < distanceToStartShooting)
             {
-                _shotWaitCounter -= Time.deltaTime;
+                //Shooting
+                _fireRate -= Time.deltaTime;
+                if (_fireRate <= 0)
+                {
+                    _fireRate = fireRate;
+                    firepoint.LookAt(_targetPoint+new Vector3(0f,1.2f,0f));
+                    if (Mathf.Abs(angle) < 30f )
+                    {
+                        agent.destination = transform.position;
+                        Instantiate(bullet, firepoint.position, firepoint.rotation);
+                        anim.SetBool("isMoving", false);
+                        anim.SetTrigger("fireShot");
+                    }
+                    else
+                    {
+                        
+                        agent.destination = PlayerMovement.instance.transform.forward;
+                        anim.SetBool("isMoving", true);
+                    }
+                }
             }
             else
             {
-                //Shooting time interval
-                _shootTimeCounter -= Time.deltaTime;
-                if (_shootTimeCounter > 0)
+                //Following
+                _fireRate = 0.3f;
+                agent.destination = _targetPoint; 
+                anim.SetBool("isMoving", true);
+            }
+            
+            //Cancel chasing
+            if (Vector3.Distance(transform.position, _targetPoint) > distanceToLose)
+            {
+                agent.destination = _startPoint;
+                if (Vector3.Distance(transform.position, _startPoint) < 1)
                 {
-                    //How fast is enemy shooting
-                    _fireRate -= Time.deltaTime;
-                    if (_fireRate <= 0)
-                    {
-                        _fireRate = fireRate;
-                        
-                        //Dont shoot at the feet of player but higher
-                        firepoint.LookAt(_targetPoint+new Vector3(0f,1.2f,0f));
-                        
-                        //Check angle of the player
-                        Vector3 targetDir = _targetPoint - transform.position;
-                        float angle = Vector3.SignedAngle(targetDir, transform.forward, Vector3.up);
-
-                        if (Mathf.Abs(angle) < 30f )
-                        {
-                            //Fire shot
-                            Instantiate(bullet, firepoint.position, firepoint.rotation);  
-                        }
-                        else
-                        {
-                            _shotWaitCounter = waitBetweenShots;
-                        }
-                    } 
+                    _chasing = false;
+                    anim.SetBool("isMoving", false);
                 }
-                //New shooting interval begins counting 
-                else
-                {
-                    _shotWaitCounter = waitBetweenShots;
-                    _shootTimeCounter = timeToShoot;
-                }    
             }
         }
     }

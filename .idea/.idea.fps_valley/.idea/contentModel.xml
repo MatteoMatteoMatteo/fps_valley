@@ -12,6 +12,7 @@
         <e p="Scripts" t="Include">
           <e p="BulletController.cs" t="Include" />
           <e p="EnemyController.cs" t="Include" />
+          <e p="EnemyControllerFancy.cs" t="Include" />
           <e p="EnemyHealthController.cs" t="Include" />
           <e p="FloorTrigger.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
@@ -76,6 +77,31 @@
           </e>
           <e p="Sprites" t="Include">
             <e p="EmojiOne Attribution.txt" t="Include" />
+          </e>
+        </e>
+        <e p="Udemy FPS Assets" t="Include">
+          <e p="Audio" t="Include">
+            <e p="Music" t="Include">
+              <e p="INFO.txt" t="Include" />
+            </e>
+          </e>
+          <e p="model credits.txt" t="Include" />
+          <e p="Models" t="Include">
+            <e p="Environment" t="Include">
+              <e p="Kenney Scifi Pack" t="Include">
+                <e p="Base Models - Kenney Space Kit" t="Include">
+                  <e p="License.txt" t="Include" />
+                </e>
+              </e>
+            </e>
+          </e>
+          <e p="Starfield Skybox" t="Include">
+            <e p="Demo" t="Include">
+              <e p="Script" t="Include">
+                <e p="LookCamera.cs" t="Include" />
+              </e>
+            </e>
+            <e p="source.txt" t="Include" />
           </e>
         </e>
       </e>
