@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static PlayerMovement instance;
     public Transform grabHolder;
     public CharacterController controller;
     public Transform groundCheck;
@@ -42,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
         _savedGravity = gravity;
         state = State.Normal;
     }

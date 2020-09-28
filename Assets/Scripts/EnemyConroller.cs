@@ -4,18 +4,35 @@ using UnityEngine;
 
 public class EnemyConroller : MonoBehaviour
 {
+    private bool _chasing = false;
+    public float distanceToChase = 20;
+    public float distanceToLose = 25;
     public float moveSpeed;
+    public Rigidbody theRb;
+    private Vector3 _targetPoint;
 
-    public Rigidbody rb;
-    // Start is called before the first frame update
-    void Start()
+    private void Update()
     {
+
+        _targetPoint = PlayerMovement.instance.transform.position;
+        _targetPoint.y = transform.position.y;
         
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-     
+        if (!_chasing)
+        {
+            if (Vector3.Distance(transform.position, _targetPoint) < distanceToChase)
+            {
+                _chasing = true;
+            }
+        }
+        else
+        {
+            transform.LookAt(_targetPoint);
+            theRb.velocity = transform.forward * moveSpeed;
+            
+            if (Vector3.Distance(transform.position, _targetPoint) > distanceToLose)
+            {
+                _chasing = false;
+            } 
+        }
     }
 }
