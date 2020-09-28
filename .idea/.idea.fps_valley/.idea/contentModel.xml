@@ -11,7 +11,7 @@
         </e>
         <e p="Scripts" t="Include">
           <e p="BulletController.cs" t="Include" />
-          <e p="EnemyConroller.cs" t="Include" />
+          <e p="EnemyController.cs" t="Include" />
           <e p="EnemyHealthController.cs" t="Include" />
           <e p="FloorTrigger.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
