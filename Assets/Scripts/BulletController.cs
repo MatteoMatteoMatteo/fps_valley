@@ -32,6 +32,15 @@ public class BulletController : MonoBehaviour
             other.gameObject.GetComponent<EnemyHealthController>().DamageEnemy(damage);
             Instantiate(enemyImpactEffect, transform.position + (transform.forward * (-moveSpeed * Time.deltaTime)), transform.rotation);
         }
+        if (other.gameObject.CompareTag("Headshot"))
+        {
+            other.transform.parent.GetComponent<EnemyHealthController>().DamageEnemy(damage*2);
+        }
+
+        if (other.gameObject.CompareTag("Player"))
+        {
+            PlayerHealthController.instance.DamagePlayer(damage);
+        }
         else if (rigid)
         {
             rigid.AddForce(transform.forward * power);

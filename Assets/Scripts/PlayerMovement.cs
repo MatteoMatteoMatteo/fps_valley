@@ -84,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
         if (_isDashing)
         {
             _dashingPower -= _dashingPower * 1.5f * Time.deltaTime;
-            dashParticles.SetActive(true);
+            dashParticles.SetActive(false);
             if (_dashingPower < 1f)
             {
                 _isDashing = false;
@@ -95,7 +95,9 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab) && state == State.Normal)
         {
             _dashingPower = dashingPower;
+            dashParticles.SetActive(true);
             _isDashing = true;
+            
         }
 
         //Walking & Sprinting

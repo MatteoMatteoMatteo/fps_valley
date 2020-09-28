@@ -62,7 +62,7 @@ public class EnemyController : MonoBehaviour
                     else
                     {
                         
-                        agent.destination = PlayerMovement.instance.transform.forward;
+                        agent.destination = _targetPoint;
                         anim.SetBool("isMoving", true);
                     }
                 }
