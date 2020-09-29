@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static PlayerMovement instance;
     public Transform grabHolder;
     public CharacterController controller;
     public Transform groundCheck;
@@ -19,6 +20,9 @@ public class PlayerMovement : MonoBehaviour
     public float walkingSpeed = 12f;
     public float sprint = 20f;
     private bool _isSprinting = false;
+    private float _dashingPower=1;
+    public float dashingPower;
+    private bool _isDashing = false;
     public float gravity = -30f;
     public float jumpHeight = 10;
     private Vector3 _velocity;
@@ -28,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 hookShotPosition;
     public float hookShotSpeedMax;
     public GameObject speedParticles;
+    public GameObject dashParticles;
     private float _savedGravity;
     private State state;
     private enum  State
@@ -38,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
         _savedGravity = gravity;
         state = State.Normal;
     }
@@ -47,9 +53,7 @@ public class PlayerMovement : MonoBehaviour
         switch (state)
         {
             default:
-                case State.Normal:
-                // HandleCharacterLook();
-                // HandleCharacterMovment();
+            case State.Normal:
                 HandleHookShotStart();
                 break;
             case State.HookshotFlyingPlayer:
@@ -75,6 +79,26 @@ public class PlayerMovement : MonoBehaviour
         var z = Input.GetAxisRaw("Vertical");
         var transform1 = transform;
         var move = transform1.right * x + transform1.forward * z;
+        
+        //Dashing
+        if (_isDashing)
+        {
+            _dashingPower -= _dashingPower * 1.5f * Time.deltaTime;
+            dashParticles.SetActive(false);
+            if (_dashingPower < 1f)
+            {
+                _isDashing = false;
+                _dashingPower = 1f;
+                dashParticles.SetActive(false);
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Tab) && state == State.Normal)
+        {
+            _dashingPower = dashingPower;
+            dashParticles.SetActive(true);
+            _isDashing = true;
+            
+        }
 
         //Walking & Sprinting
         if (Input.GetKey(KeyCode.LeftShift) && state == State.Normal)
@@ -91,7 +115,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            controller.Move(move * (walkingSpeed * Time.deltaTime)); 
+            controller.Move(move * (walkingSpeed * _dashingPower * Time.deltaTime)); 
         }
         
         //Jumping & Gravity

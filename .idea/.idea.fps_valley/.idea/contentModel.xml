@@ -5,17 +5,27 @@
       <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="AllSkyFree" t="Include">
+          <e p="AllSkyFree_Menu.cs" t="Include" />
+          <e p="AllSkyFree_Readme.txt" t="Include" />
+        </e>
         <e p="Scripts" t="Include">
           <e p="BulletController.cs" t="Include" />
-          <e p="CameraController.cs" t="Include" />
+          <e p="CheckpointController.cs" t="Include" />
+          <e p="EnemyController.cs" t="Include" />
+          <e p="EnemyControllerFancy.cs" t="Include" />
           <e p="EnemyHealthController.cs" t="Include" />
           <e p="FloorTrigger.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
           <e p="mainmenu.cs" t="Include" />
           <e p="MouseScript.cs" t="Include" />
-          <e p="PLAYER.cs" t="Include" />
+          <e p="Pickups" t="Include">
+            <e p="HealthPickup.cs" t="Include" />
+          </e>
+          <e p="PlayerHealthController.cs" t="Include" />
           <e p="PlayerMovement.cs" t="Include" />
           <e p="TargetMoving.cs" t="Include" />
+          <e p="UIController.cs" t="Include" />
         </e>
         <e p="Standard Assets" t="Include">
           <e p="CrossPlatformInput" t="Include">
