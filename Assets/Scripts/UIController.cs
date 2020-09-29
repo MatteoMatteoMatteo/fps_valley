@@ -11,7 +11,7 @@ public class UIController : MonoBehaviour
 
     public TextMeshProUGUI healthText;
 
-    private void Start()
+    private void Awake()
     {
         instance = this;
     }

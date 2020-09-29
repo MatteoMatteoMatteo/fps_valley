@@ -60,12 +60,14 @@
   <ItemGroup>
      <Compile Include="Assets\AllSkyFree\AllSkyFree_Menu.cs" />
      <Compile Include="Assets\Scripts\BulletController.cs" />
+     <Compile Include="Assets\Scripts\CheckpointController.cs" />
      <Compile Include="Assets\Scripts\EnemyController.cs" />
      <Compile Include="Assets\Scripts\EnemyControllerFancy.cs" />
      <Compile Include="Assets\Scripts\EnemyHealthController.cs" />
      <Compile Include="Assets\Scripts\FloorTrigger.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\MouseScript.cs" />
+     <Compile Include="Assets\Scripts\Pickups\HealthPickup.cs" />
      <Compile Include="Assets\Scripts\PlayerHealthController.cs" />
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\TargetMoving.cs" />
