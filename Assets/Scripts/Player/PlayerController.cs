@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
     public Transform adsPoint, gunHolder;
     private Vector3 _gunStartPosition;
     public float adsSpeed = 2f;
+    public GameObject muzzleFlash;
     private enum  State
     {
         Normal,
@@ -140,6 +141,8 @@ public class PlayerController : MonoBehaviour
     
     private void HandleMissiles()
     {
+        // muzzleFlash.SetActive(false);
+        
         if (Input.GetMouseButtonDown(0) && activeGun.fireCounter<=0)
         {
             if (Physics.Raycast(playerBody.position, playerBody.forward, out var hit, 500f))
@@ -194,7 +197,8 @@ public class PlayerController : MonoBehaviour
         if (activeGun.currentAmo > 0)
         {
             Instantiate(activeGun.bullet, firePoint.position, firePoint.rotation);
-
+            // muzzleFlash.SetActive(true);
+            
             activeGun.fireCounter = activeGun.fireRate;
             activeGun.currentAmo--;
             UIController.instance.ammoText.text = activeGun.currentAmo + " Bullets";
