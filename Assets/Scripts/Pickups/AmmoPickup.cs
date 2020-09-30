@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class AmmoPickup : MonoBehaviour
 {
-    private bool collected=false;
+    private bool _collected=false;
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Player") && !collected)
+        if(other.gameObject.CompareTag("Player") && !_collected)
         {
             PlayerController.instance.activeGun.GetAmmo();
             Destroy(gameObject);
-            collected = true;
+            _collected = true;
         }
     }
 }

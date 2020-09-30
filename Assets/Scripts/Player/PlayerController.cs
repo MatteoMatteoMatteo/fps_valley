@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
     private float _savedGravity;
     private State state;
     public List<Gun> allGuns = new List<Gun>();
+    public List<Gun> unlockableGun = new List<Gun>();
     public int currentGun;
     public Transform adsPoint, gunHolder;
     private Vector3 _gunStartPosition;
@@ -213,6 +214,31 @@ public class PlayerController : MonoBehaviour
         activeGun.gameObject.SetActive(true);
         firePoint.position = activeGun.firepoint.position;
         UIController.instance.ammoText.text = activeGun.currentAmo + " Bullets";
+    }
+
+    public void AddGun(string gunToAdd)
+    {
+        bool gunUnlocked = false;
+        if (unlockableGun.Count > 0)
+        {
+            for (int i = 0; i < unlockableGun.Count; i++) 
+            {
+                if (unlockableGun[i].gunName == gunToAdd)
+                {
+                    gunUnlocked = true;
+                    allGuns.Add(unlockableGun[i]);
+                    unlockableGun.RemoveAt(i);
+
+                    i = unlockableGun.Count;
+                }
+            }
+        }
+
+        if (gunUnlocked)
+        {
+            currentGun = allGuns.Count - 2;
+            SwitchGun();
+        }
     }
     private void Grab()
     {

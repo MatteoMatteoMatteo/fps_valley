@@ -5,15 +5,15 @@ using UnityEngine;
 
 public class HealthPickup : MonoBehaviour
 {
-    private bool collected=false;
+    private bool _collected=false;
     public int healAmount;
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Player") && !collected)
+        if(other.gameObject.CompareTag("Player") && !_collected)
         {
             PlayerHealthController.instance.HealPlayer(healAmount);
             Destroy(gameObject);
-            collected = true;
+            _collected = true;
         }
     }
 }
