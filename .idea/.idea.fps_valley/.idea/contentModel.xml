@@ -17,9 +17,11 @@
           <e p="EnemyHealthController.cs" t="Include" />
           <e p="FloorTrigger.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
+          <e p="Gun.cs" t="Include" />
           <e p="mainmenu.cs" t="Include" />
           <e p="MouseScript.cs" t="Include" />
           <e p="Pickups" t="Include">
+            <e p="AmmoPickup.cs" t="Include" />
             <e p="HealthPickup.cs" t="Include" />
           </e>
           <e p="PlayerHealthController.cs" t="Include" />

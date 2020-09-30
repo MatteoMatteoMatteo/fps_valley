@@ -9,6 +9,7 @@ public class BulletController : MonoBehaviour
     public int power;
     public GameObject gravityGunImpactEffect;
     public GameObject enemyImpactEffect;
+    public GameObject enemyHeadshotImpactEffect;
     public int damage=1;
 
     // Update is called once per frame
@@ -35,6 +36,7 @@ public class BulletController : MonoBehaviour
         if (other.gameObject.CompareTag("Headshot"))
         {
             other.transform.parent.GetComponent<EnemyHealthController>().DamageEnemy(damage*2);
+            Instantiate(enemyHeadshotImpactEffect, transform.position + (transform.forward * (-moveSpeed * Time.deltaTime)), transform.rotation);
         }
 
         if (other.gameObject.CompareTag("Player"))

@@ -11,8 +11,8 @@ public class PlayerMovement : MonoBehaviour
     public CharacterController controller;
     public Transform groundCheck;
     public LayerMask groundMask;
+    public Gun activeGun;
     public GameObject bullet;
-    public GameObject weapon;
     public Transform firePoint;
     public Transform playerBody;
     private float _groundDistance = 0.4f;
@@ -47,7 +47,6 @@ public class PlayerMovement : MonoBehaviour
         _savedGravity = gravity;
         state = State.Normal;
     }
-
     void Update()
     {
         switch (state)
@@ -62,7 +61,6 @@ public class PlayerMovement : MonoBehaviour
         }
         Movement();
         HandleMissiles();
-        RotateWeapon();
         Grab();
         HandleHookShotStart();
     }
@@ -129,7 +127,7 @@ public class PlayerMovement : MonoBehaviour
     
     private void HandleMissiles()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && activeGun.fireCounter<=0)
         {
             if (Physics.Raycast(playerBody.position, playerBody.forward, out var hit, 500f))
             {
@@ -142,13 +140,28 @@ public class PlayerMovement : MonoBehaviour
             {
                 firePoint.LookAt(playerBody.position + (playerBody.forward * 30f));
             }
-            Instantiate(bullet, firePoint.position, firePoint.rotation);
+            FireShot();
+        }
+
+        if (Input.GetMouseButton(0) && activeGun.canAutoFire)
+        {
+            if (activeGun.fireCounter <= 0)
+            {
+                FireShot();
+            }
         }
     }
-
-    private void RotateWeapon()
+    
+    private void FireShot()
     {
-        weapon.transform.Rotate(0, 0, 20 * Time.deltaTime);
+        if (activeGun.currentAmo > 0)
+        {
+            Instantiate(activeGun.bullet, firePoint.position, firePoint.rotation);
+
+            activeGun.fireCounter = activeGun.fireRate;
+            activeGun.currentAmo--;
+            UIController.instance.ammoText.text = activeGun.currentAmo + " Bullets";
+        }
     }
 
     private void Grab()
