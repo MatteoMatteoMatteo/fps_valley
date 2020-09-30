@@ -36,6 +36,9 @@ public class PlayerController : MonoBehaviour
     private State state;
     public List<Gun> allGuns = new List<Gun>();
     public int currentGun;
+    public Transform adsPoint, gunHolder;
+    private Vector3 _gunStartPosition;
+    public float adsSpeed = 2f;
     private enum  State
     {
         Normal,
@@ -51,7 +54,9 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-
+        currentGun--;
+        SwitchGun();
+        _gunStartPosition = gunHolder.localPosition;
     }
 
     void Update()
@@ -158,9 +163,28 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetAxis("Mouse ScrollWheel") != 0)
         {
             SwitchGun();
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            MouseScript.instance.ZoomIn(activeGun.zoomAmount);
+        }
+
+        if (Input.GetMouseButton(1))
+        {
+            gunHolder.position = Vector3.MoveTowards(gunHolder.position, adsPoint.position, adsSpeed * Time.deltaTime);
+        }
+        else
+        {
+            gunHolder.localPosition = Vector3.MoveTowards(gunHolder.localPosition, _gunStartPosition, adsSpeed * Time.deltaTime);
+        }
+        
+        if (Input.GetMouseButtonUp(1))
+        {
+            MouseScript.instance.ZoomOut();
         }
     }
     
@@ -187,16 +211,17 @@ public class PlayerController : MonoBehaviour
         }
         activeGun = allGuns[currentGun];
         activeGun.gameObject.SetActive(true);
+        firePoint.position = activeGun.firepoint.position;
         UIController.instance.ammoText.text = activeGun.currentAmo + " Bullets";
     }
     private void Grab()
     {
-        if (Input.GetMouseButtonDown(1) && Physics.Raycast(playerBody.position, playerBody.forward , out var hit) && hit.transform.GetComponent<Rigidbody>() && !_isGrabbing)
+        if (Input.GetKeyDown(KeyCode.F) && Physics.Raycast(playerBody.position, playerBody.forward , out var hit) && hit.transform.GetComponent<Rigidbody>() && !_isGrabbing)
         {
             _grabbedObj = hit.transform.gameObject;
             _isGrabbing = true;
         }
-        else if (Input.GetMouseButtonDown(1) && _isGrabbing)
+        else if (Input.GetKeyDown(KeyCode.F) && _isGrabbing)
         {
             _isGrabbing = false;
             _grabbedObj = null;
