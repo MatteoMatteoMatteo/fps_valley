@@ -10,24 +10,36 @@
           <e p="AllSkyFree_Readme.txt" t="Include" />
         </e>
         <e p="Scripts" t="Include">
-          <e p="BulletController.cs" t="Include" />
-          <e p="CheckpointController.cs" t="Include" />
-          <e p="EnemyController.cs" t="Include" />
-          <e p="EnemyControllerFancy.cs" t="Include" />
-          <e p="EnemyHealthController.cs" t="Include" />
-          <e p="FloorTrigger.cs" t="Include" />
+          <e p="Enemy" t="Include">
+            <e p="EnemyController.cs" t="Include" />
+            <e p="EnemyControllerFancy.cs" t="Include" />
+            <e p="EnemyHealthController.cs" t="Include" />
+          </e>
           <e p="GameManager.cs" t="Include" />
-          <e p="Gun.cs" t="Include" />
-          <e p="mainmenu.cs" t="Include" />
-          <e p="MouseScript.cs" t="Include" />
+          <e p="Menu" t="Include">
+            <e p="mainmenu.cs" t="Include" />
+            <e p="MouseScript.cs" t="Include" />
+          </e>
           <e p="Pickups" t="Include">
             <e p="AmmoPickup.cs" t="Include" />
             <e p="HealthPickup.cs" t="Include" />
           </e>
-          <e p="PlayerHealthController.cs" t="Include" />
-          <e p="PlayerMovement.cs" t="Include" />
-          <e p="TargetMoving.cs" t="Include" />
-          <e p="UIController.cs" t="Include" />
+          <e p="Player" t="Include">
+            <e p="PlayerController.cs" t="Include" />
+            <e p="PlayerHealthController.cs" t="Include" />
+          </e>
+          <e p="UI" t="Include">
+            <e p="UIController.cs" t="Include" />
+          </e>
+          <e p="Weapon" t="Include">
+            <e p="BulletController.cs" t="Include" />
+            <e p="Gun.cs" t="Include" />
+          </e>
+          <e p="World" t="Include">
+            <e p="CheckpointController.cs" t="Include" />
+            <e p="FloorTrigger.cs" t="Include" />
+            <e p="TargetMoving.cs" t="Include" />
+          </e>
         </e>
         <e p="Standard Assets" t="Include">
           <e p="CrossPlatformInput" t="Include">

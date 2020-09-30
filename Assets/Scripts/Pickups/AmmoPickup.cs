@@ -10,7 +10,7 @@ public class AmmoPickup : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player") && !collected)
         {
-            PlayerMovement.instance.activeGun.GetAmmo();
+            PlayerController.instance.activeGun.GetAmmo();
             Destroy(gameObject);
             collected = true;
         }
